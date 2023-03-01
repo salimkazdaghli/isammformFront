@@ -1,0 +1,23 @@
+
+.card{
+  margin: 2% 5%;
+  padding: 2% 3%;
+  background-color: #ffff;
+  border-top: solid 10px #673ab7;
+}
+.card-menu{
+  margin-top: 8% ;
+  background-color: #ffff ;
+  width: 0px;
+
+}
+.btn {
+  background-color: #673ab7;
+}
+.card-foter{
+  border-top: solid 2px rgba(86, 86, 83, 0.8);
+}
+.card-foter> .btn {
+  float: right;
+
+}

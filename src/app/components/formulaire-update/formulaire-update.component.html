@@ -1,0 +1,116 @@
+<div class="container">
+  <div *ngIf="!loading">
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <form [formGroup]="formulaireForm"
+        >
+          <div class="row justify-content-md-center">
+            <div class="col-md-10">
+              <div class="card">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="titre"
+                    name="titre"
+                    placeholder="Untitled form"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    id="description"
+                    required
+                    formControlName="description"
+                    name="description"
+                    placeholder="Form Description"
+                  />
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button (click)="addQuestions()"  class="btn btn-success"> Ajouter Question </button>
+                  </div>
+                  <div class="col">
+                    <button (click)="onSubmit()" class="btn btn-success">Send</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div formArrayName="questions">
+            <div *ngFor="let question of questions.controls; let i=index">
+              <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                  <div class="card">
+                    <div [formGroupName]="i">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <input class="form-control" formControlName="titre" id="titre{{i}}" placeholder="Question"/>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <select name="reponseType" formControlName="reponseType" class="form-control">
+                              <option [selected]="true" >Reponse Type</option>
+                              <option   value="Multiple">Multiple choice</option>
+                              <option value="Checkboxes">Checkboxes</option>
+                              <option value="Text">Texte</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <input class="form-control" name="option" formControlName="option" id="option{{i}}" placeholder="Option"/>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <button class="btn btn-success form-control" (click)="addOptions(i)">
+                            Add option
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-md-8">
+                          <ol class="list-group list-group-numbered">
+
+                            <div *ngFor="let option of optionsData(i);">
+                              <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="md-8 me-auto">
+                                  <div class="fw-bold">{{option}}</div>
+                                </div>
+                                <span class="badge bg-primary rounded-pill">14</span>
+                              </li>
+                            </div>
+
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row card-foter" >
+                      <div class="col-md-6 offset-md-9">
+                        <button class="btn btn-success"   (click)="removeQuestion(i)">remove question </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="submitted">
+        <h4>You submitted successfully!</h4>
+        <button class="btn btn-success" (click)="newFormulaire()">Add</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading">
+    Loding ...
+  </div>
+</div>

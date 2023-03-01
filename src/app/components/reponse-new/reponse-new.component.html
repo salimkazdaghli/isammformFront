@@ -1,0 +1,68 @@
+<div *ngIf="loading">
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="row">
+          <h2>{{formulaire.titre}}</h2>
+        </div>
+        <div class="row">
+          <h4>{{formulaire.description}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="reponseForm">
+    <div *ngFor="let question of formulaire.questions ;">
+      <div class="row justify-content-md-center">
+        <div class="col-md-10">
+          <div class="card">
+            <div class="row">
+              <h4>{{question.titre}} *</h4>
+            </div>
+            <div *ngIf="question.reponseType == 'Checkboxes' ">
+              <div *ngFor="let option of question.options" class="row">
+                <div class="col-md-8">
+                  <div class="form-check">
+                    <input class="form-check-input" value="{{option}}" type="radio" formControlName="{{question.id}}" name="{{question.id}}" id="{{question.id}}" >
+                    <label class="form-check-label" for="{{question.id}}">
+                      {{option}}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="question.reponseType == 'Multiple' ">
+              <div *ngFor="let option of question.options" class="row">
+                <div class="col-md-8">
+                  <div class="form-check">
+                    <input class="form-check-input" value="{{option}}" type="checkbox" formControlName="{{question.id}}" name="{{question.id}}" id="{{question.id}}">
+                    <label class="form-check-label" for="{{question.id}}">
+                      {{option}}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="question.reponseType == 'Text' ">
+              <div class="col-md-10">
+                <div class="form-group">
+                  <input class="form-control" formControlName="{{question.id}}"  type="text" name="{{question.id}}" >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button (click)="onSubmit()" class="btn btn-success">Envoyer</button>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+<div *ngIf="!loading">
+  Loading ....
+</div>
